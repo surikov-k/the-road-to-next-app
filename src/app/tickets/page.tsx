@@ -20,7 +20,7 @@ export default function TicketsPage() {
         </p>
       </div>
 
-      <div className='flex flex-1 flex-col items-center gap-y-4'>
+      <div className='animate-fade-in-from-top flex flex-1 flex-col items-center gap-y-4'>
         {initialTickets.map((ticket) => (
           <div
             key={ticket.id}
