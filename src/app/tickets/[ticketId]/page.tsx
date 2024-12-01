@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import Placeholder from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
-import { initialTickets } from "@/data";
 import TicketItem from "@/features/ticket/componets/ticket-item";
+import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { ticketsPath } from "@/paths";
 
 type TicketPageProps = {
@@ -11,9 +11,9 @@ type TicketPageProps = {
     ticketId: string;
   };
 };
-export default function TicketPage({ params }: TicketPageProps) {
+export default async function TicketPage({ params }: TicketPageProps) {
   const { ticketId } = params;
-  const ticket = initialTickets.find((ticket) => ticket.id === ticketId);
+  const ticket = await getTicket(ticketId);
 
   if (!ticket) {
     return (
@@ -28,7 +28,7 @@ export default function TicketPage({ params }: TicketPageProps) {
     );
   }
   return (
-    <div className={"animate-fade-in-from-top flex justify-center"}>
+    <div className={"flex animate-fade-in-from-top justify-center"}>
       <TicketItem ticket={ticket} hasDetail />
     </div>
   );
