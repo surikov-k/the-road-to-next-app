@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { initialTickets } from "@/data";
 import { ticketPath } from "@/paths";
 
@@ -78,6 +79,8 @@ export default function TicketsPage() {
         </p>
       </div>
 
+      <Separator />
+
       <div className='animate-fade-in-from-top flex flex-1 flex-col items-center gap-y-4'>
         {initialTickets.map((ticket) => (
           <Card key={ticket.id} className='w-full max-w-[420px]'>
@@ -92,9 +95,10 @@ export default function TicketsPage() {
                 {ticket.content}
               </p>
             </CardContent>
+            <Separator />
             <CardFooter>
               <Link
-                className='text-sm underline'
+                className='pt-4 text-sm underline'
                 href={ticketPath(ticket.id.toString())}
               >
                 Go to ticket
