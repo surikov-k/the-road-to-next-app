@@ -24,8 +24,6 @@ export default function TicketItem({ ticket, hasDetail }: TicketItemProps) {
     );
   };
 
-  console.log("!hasDetail", !hasDetail);
-
   return (
     <div
       className={clsx("flex w-full gap-x-2", {
