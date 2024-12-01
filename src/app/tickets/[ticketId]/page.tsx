@@ -3,6 +3,7 @@ import Link from "next/link";
 import Placeholder from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
 import { initialTickets } from "@/data";
+import TicketItem from "@/features/ticket/componets/ticket-item";
 import { ticketsPath } from "@/paths";
 
 type TicketPageProps = {
@@ -12,9 +13,7 @@ type TicketPageProps = {
 };
 export default function TicketPage({ params }: TicketPageProps) {
   const { ticketId } = params;
-  const ticket = initialTickets.find(
-    (ticket) => ticket.id === Number(ticketId)
-  );
+  const ticket = initialTickets.find((ticket) => ticket.id === ticketId);
 
   if (!ticket) {
     return (
@@ -29,10 +28,8 @@ export default function TicketPage({ params }: TicketPageProps) {
     );
   }
   return (
-    <div>
-      <h2 className='text-2xl'>{ticket.title}</h2>
-      {<p>{ticket.content}</p>}
-      {<p>{ticket.status}</p>}
+    <div className={"animate-fade-in-from-top flex justify-center"}>
+      <TicketItem ticket={ticket} hasDetail />
     </div>
   );
 }

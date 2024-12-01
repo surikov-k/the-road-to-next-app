@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { LucideSquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -9,9 +10,10 @@ import { ticketPath } from "@/paths";
 
 interface TicketItemProps {
   ticket: Ticket;
+  hasDetail?: boolean;
 }
 
-export default function TicketItem({ ticket }: TicketItemProps) {
+export default function TicketItem({ ticket, hasDetail }: TicketItemProps) {
   const detailButton = () => {
     return (
       <Button asChild size='icon' variant='ghost'>
@@ -22,22 +24,35 @@ export default function TicketItem({ ticket }: TicketItemProps) {
     );
   };
 
+  console.log("!hasDetail", !hasDetail);
+
   return (
-    <div className='flex w-full max-w-[420px] gap-x-2'>
+    <div
+      className={clsx("flex w-full gap-x-2", {
+        "max-w-[420px]": !hasDetail,
+        "max-w-[580px]": hasDetail,
+      })}
+    >
       <Card key={ticket.id} className='w-full'>
         <CardHeader>
           <CardTitle className='flex gap-x-2'>
             <span>{TICKET_ICONS[ticket.status]}</span>
-            <span className='truncate'>{ticket.title}</span>
+            <span className={clsx({ truncate: !hasDetail })}>
+              {ticket.title}
+            </span>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className='line-clamp-3 whitespace-break-spaces'>
+          <p
+            className={clsx({
+              "line-clamp-3 whitespace-break-spaces": !hasDetail,
+            })}
+          >
             {ticket.content}
           </p>
         </CardContent>
       </Card>
-      <div className='flex flex-col'>{detailButton()}</div>
+      {hasDetail ? null : <div className='flex flex-col'>{detailButton()}</div>}
     </div>
   );
 }
