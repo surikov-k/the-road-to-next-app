@@ -1,6 +1,7 @@
 import { LucideCircleCheck, LucideFileText, LucidePencil } from "lucide-react";
 import Link from "next/link";
 
+import Heading from "@/components/Heading";
 import {
   Card,
   CardContent,
@@ -21,14 +22,7 @@ const TICKET_ICONS = {
 export default function TicketsPage() {
   return (
     <div className='flex flex-1 flex-col gap-y-8'>
-      <div>
-        <h2 className='text-3xl font-bold tracking-tight'>Tickets</h2>
-        <p className='text-muted-foreground text-sm'>
-          All your tickets at one place
-        </p>
-      </div>
-
-      <Separator />
+      <Heading title='Tickets' description='All your tickets at one place' />
 
       <div className='animate-fade-in-from-top flex flex-1 flex-col items-center gap-y-4'>
         {initialTickets.map((ticket) => (
