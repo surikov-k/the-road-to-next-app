@@ -6,6 +6,8 @@ import Placeholder from "@/components/placeholder";
 import Spinner from "@/components/spinner";
 import TicketList from "@/features/ticket/componets/ticket-list";
 
+export const dynamic = "force-dynamic";
+
 export default function TicketsPage() {
   return (
     <div className='flex flex-1 flex-col gap-y-8'>
