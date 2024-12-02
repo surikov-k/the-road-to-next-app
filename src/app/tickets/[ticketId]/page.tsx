@@ -4,7 +4,6 @@ import Placeholder from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
 import TicketItem from "@/features/ticket/componets/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-ticket";
-import { getTickets } from "@/features/ticket/queries/get-tickets";
 import { ticketsPath } from "@/paths";
 
 type TicketPageProps = {
@@ -33,11 +32,4 @@ export default async function TicketPage({ params }: TicketPageProps) {
       <TicketItem ticket={ticket} hasDetail />
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  const tickets = await getTickets();
-  return tickets.map((ticket) => ({
-    ticketId: ticket.id,
-  }));
 }
