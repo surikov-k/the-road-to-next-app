@@ -2,9 +2,9 @@ import { clsx } from "clsx";
 import { LucideSquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 
-import { TICKET_ICONS } from "@/app/tickets/constants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TICKET_ICONS } from "@/features/ticket/componets/constants";
 import { Ticket } from "@/features/ticket/types.";
 import { ticketPath } from "@/paths";
 
