@@ -5,8 +5,8 @@ import CardCompact from "@/components/card-compact";
 import Heading from "@/components/Heading";
 import Placeholder from "@/components/placeholder";
 import Spinner from "@/components/spinner";
-import TicketCreateForm from "@/features/ticket/componets/ticket-create-form";
 import TicketList from "@/features/ticket/componets/ticket-list";
+import TicketUpsertForm from "@/features/ticket/componets/ticket-upsert-form";
 
 export default function TicketsPage() {
   return (
@@ -16,7 +16,7 @@ export default function TicketsPage() {
       <CardCompact
         title='Create Ticket'
         description='Create a new ticket'
-        content={<TicketCreateForm />}
+        content={<TicketUpsertForm />}
         className='w-full max-w-[420px] self-center'
       />
 
