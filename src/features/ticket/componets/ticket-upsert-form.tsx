@@ -28,10 +28,18 @@ export default function TicketUpsertForm({ ticket }: TicketUpsertFormProps) {
           type='text'
           id='title'
           name='title'
-          defaultValue={ticket?.title}
+          defaultValue={
+            (actionState.payload?.get("title") as string) ?? ticket?.title
+          }
         />
         <Label htmlFor='content'>Content</Label>
-        <Textarea id='content' name='content' defaultValue={ticket?.content} />
+        <Textarea
+          id='content'
+          name='content'
+          defaultValue={
+            (actionState.payload?.get("content") as string) ?? ticket?.content
+          }
+        />
 
         <SubmitButton label={ticket ? "Update" : "Create"} />
         {actionState.message}
