@@ -45,5 +45,6 @@ export async function upsertTicket(
 
   return {
     message: `Ticket ${id ? "updated" : "created"} successfully.`,
+    fieldErrors: {},
   };
 }

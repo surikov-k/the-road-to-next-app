@@ -2,6 +2,7 @@ import { ZodError } from "zod";
 
 export type ActionState = {
   payload?: FormData;
+  fieldErrors: Record<string, string[] | undefined>;
   message: string;
 };
 
@@ -11,7 +12,8 @@ export function fromErrorToActionState(
 ): ActionState {
   if (error instanceof ZodError) {
     return {
-      message: error.errors[0].message,
+      message: "",
+      fieldErrors: error.flatten().fieldErrors,
       payload: formData,
     };
   }
@@ -19,12 +21,14 @@ export function fromErrorToActionState(
   if (error instanceof Error) {
     return {
       message: error.message,
+      fieldErrors: {},
       payload: formData,
     };
   }
 
   return {
     message: "An unknown error occurred",
+    fieldErrors: {},
     payload: formData,
   };
 }

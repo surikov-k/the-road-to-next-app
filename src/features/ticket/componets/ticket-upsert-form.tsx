@@ -18,31 +18,43 @@ export default function TicketUpsertForm({ ticket }: TicketUpsertFormProps) {
     upsertTicket.bind(null, ticket?.id),
     {
       message: "",
+      fieldErrors: {},
     }
   );
   return (
     <div>
       <form action={action} className='flex flex-col gap-y-2'>
-        <Label htmlFor='title'>Title</Label>
-        <Input
-          type='text'
-          id='title'
-          name='title'
-          defaultValue={
-            (actionState.payload?.get("title") as string) ?? ticket?.title
-          }
-        />
-        <Label htmlFor='content'>Content</Label>
-        <Textarea
-          id='content'
-          name='content'
-          defaultValue={
-            (actionState.payload?.get("content") as string) ?? ticket?.content
-          }
-        />
+        <div>
+          <Label htmlFor='title'>Title</Label>
+          <Input
+            type='text'
+            id='title'
+            name='title'
+            defaultValue={
+              (actionState.payload?.get("title") as string) ?? ticket?.title
+            }
+          />
+          <span className='text-sm text-red-600'>
+            {actionState.fieldErrors.title?.[0]}
+          </span>
+        </div>
+
+        <div>
+          <Label htmlFor='content'>Content</Label>
+          <Textarea
+            id='content'
+            name='content'
+            defaultValue={
+              (actionState.payload?.get("content") as string) ?? ticket?.content
+            }
+          />
+          <span className='text-sm text-red-600'>
+            {actionState.fieldErrors.content?.[0]}
+          </span>
+        </div>
 
         <SubmitButton label={ticket ? "Update" : "Create"} />
-        {actionState.message}
+        <span className='text-sm text-red-600'>{actionState.message}</span>
       </form>
     </div>
   );
