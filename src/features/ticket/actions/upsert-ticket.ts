@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+import { setCookie } from "@/actions/cookies";
 import {
   ActionState,
   fromErrorToActionState,
@@ -41,6 +42,7 @@ export async function upsertTicket(
 
   revalidatePath(ticketsPath());
   if (id) {
+    await setCookie("toast", "Ticket updated successfully");
     redirect(ticketsPath());
   }
 
