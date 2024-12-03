@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import type { Metadata } from "next";
 
 import Header from "@/components/header";
+import RedirectToast from "@/components/redirect-toast";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
             {children}
           </main>
           <Toaster position='top-right' expand richColors />
+          <RedirectToast />
         </ThemeProvider>
       </body>
     </html>

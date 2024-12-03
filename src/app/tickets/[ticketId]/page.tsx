@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import Placeholder from "@/components/placeholder";
-import RedirectToast from "@/components/redirect-toast";
 import { Button } from "@/components/ui/button";
 import TicketItem from "@/features/ticket/componets/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-ticket";
@@ -29,11 +28,8 @@ export default async function TicketPage({ params }: TicketPageProps) {
     );
   }
   return (
-    <>
-      <div className={"flex animate-fade-in-from-top justify-center"}>
-        <TicketItem ticket={ticket} hasDetail />
-      </div>
-      <RedirectToast />
-    </>
+    <div className={"flex animate-fade-in-from-top justify-center"}>
+      <TicketItem ticket={ticket} hasDetail />
+    </div>
   );
 }
