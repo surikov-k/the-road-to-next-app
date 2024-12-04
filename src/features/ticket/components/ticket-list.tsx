@@ -1,4 +1,4 @@
-import TicketItem from "@/features/ticket/componets/ticket-item";
+import TicketItem from "@/features/ticket/components/ticket-item";
 import { getTickets } from "@/features/ticket/queries/get-tickets";
 
 export default async function TicketList() {

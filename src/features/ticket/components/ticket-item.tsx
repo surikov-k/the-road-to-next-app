@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { deleteTicket } from "@/features/ticket/actions/delete-ticket";
-import { TICKET_ICONS } from "@/features/ticket/componets/constants";
+import { TICKET_ICONS } from "@/features/ticket/components/constants";
 import { editTicketPath, ticketPath } from "@/paths";
 import { toCurrencyFromCents } from "@/utils/currency";
 

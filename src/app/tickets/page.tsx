@@ -5,8 +5,8 @@ import CardCompact from "@/components/card-compact";
 import Heading from "@/components/Heading";
 import Placeholder from "@/components/placeholder";
 import Spinner from "@/components/spinner";
-import TicketList from "@/features/ticket/componets/ticket-list";
-import TicketUpsertForm from "@/features/ticket/componets/ticket-upsert-form";
+import TicketList from "@/features/ticket/components/ticket-list";
+import TicketUpsertForm from "@/features/ticket/components/ticket-upsert-form";
 
 export default function TicketsPage() {
   return (
