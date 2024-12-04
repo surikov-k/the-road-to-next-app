@@ -14,6 +14,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useConfirmDialog from "@/components/use-confirm-dialog";
+import { deleteTicket } from "@/features/ticket/actions/delete-ticket";
 import { updateTicketStatus } from "@/features/ticket/actions/update-ticket-stauts";
 import { TICKET_STATUS_LABELS } from "@/features/ticket/components/constants";
 
@@ -26,12 +28,15 @@ export default function TicketMoreMenu({
   ticket,
   trigger,
 }: TicketMoreMenuProps) {
-  const deleteButton = (
-    <DropdownMenuItem>
-      <LucideTrash2 className='mr-2 h-4 w-4' />
-      <span>Delete</span>
-    </DropdownMenuItem>
-  );
+  const [deleteButton, deleteDialog] = useConfirmDialog({
+    action: deleteTicket.bind(null, ticket.id),
+    trigger: (
+      <DropdownMenuItem>
+        <LucideTrash2 className='mr-2 h-4 w-4' />
+        <span>Delete</span>
+      </DropdownMenuItem>
+    ),
+  });
 
   const handleUpdateTicketStatus = async (value: string) => {
     const promise = updateTicketStatus(ticket.id, value as TicketStatus);
@@ -60,13 +65,16 @@ export default function TicketMoreMenu({
     </DropdownMenuRadioGroup>
   );
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56' side='right'>
-        {ticketStatusRadioGroupItems}
-        <DropdownMenuSeparator />
-        {deleteButton}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      {deleteDialog}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+        <DropdownMenuContent className='w-56' side='right'>
+          {ticketStatusRadioGroupItems}
+          <DropdownMenuSeparator />
+          {deleteButton}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }
