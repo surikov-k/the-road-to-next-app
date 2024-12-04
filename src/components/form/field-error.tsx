@@ -12,5 +12,5 @@ export default function FieldError({ actionState, name }: FieldErrorProps) {
     return null;
   }
 
-  return <span className='text-sm text-red-600'>{message}</span>;
+  return <span className='text-sm text-orange-500'>{message}</span>;
 }
