@@ -8,7 +8,7 @@ import ThemeSwitcher from "@/components/theme/theme-switcher";
 import { buttonVariants } from "@/components/ui/button";
 import { signOut } from "@/features/auth/actions/sign-out";
 import { useAuth } from "@/features/auth/hooks/use-auth";
-import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
+import { homePath, signInPath, signUpPath } from "@/paths";
 
 export default function Header() {
   // const { user } = await getAuth();
@@ -20,18 +20,9 @@ export default function Header() {
   }
 
   const navItems = user ? (
-    <>
-      <Link
-        href={ticketsPath()}
-        className={buttonVariants({ variant: "outline" })}
-      >
-        Tickets
-      </Link>
-
-      <form action={signOut}>
-        <SubmitButton label='Sign Out' icon={<LucideLogOut />} />
-      </form>
-    </>
+    <form action={signOut}>
+      <SubmitButton label='Sign Out' icon={<LucideLogOut />} />
+    </form>
   ) : (
     <>
       <Link
@@ -50,7 +41,7 @@ export default function Header() {
   );
 
   return (
-    <nav className='animate-header-from-top supports-backdrop-blur:bg-white/60 fixed left-0 right-0 top-0 z-20 flex w-full justify-between border-b bg-background/95 px-5 py-2.5 backdrop-blur'>
+    <nav className='supports-backdrop-blur:bg-white/60 fixed left-0 right-0 top-0 z-20 flex w-full animate-header-from-top justify-between border-b bg-background/95 px-5 py-2.5 backdrop-blur'>
       <div>
         <Link
           href={homePath()}

@@ -1,9 +1,11 @@
 import "./globals.css";
 
 import localFont from "next/font/local";
+import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import Header from "@/components/header";
+import Sidebar from "@/components/sidebar/components/sidebar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
@@ -40,9 +42,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className='flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-secondary/20 px-8 py-24'>
-            {children}
-          </main>
+          <div className='flex h-screen border-collapse overflow-hidden'>
+            <Sidebar />
+            <main className='flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-secondary/20 px-8 py-24'>
+              {children}
+            </main>
+          </div>
           <Toaster position='top-right' expand richColors />
         </ThemeProvider>
       </body>
