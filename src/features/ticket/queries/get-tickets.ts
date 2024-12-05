@@ -5,5 +5,8 @@ export async function getTickets() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      user: true,
+    },
   });
 }
