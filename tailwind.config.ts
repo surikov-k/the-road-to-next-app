@@ -71,9 +71,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "header-from-top": {
+          from: {
+            opacity: "0",
+            transform: "translateY(-100%)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "fade-in-from-top": "fade-in-from-top 0.3s ease-out",
+        "header-from-top": "header-from-top 0.3s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
