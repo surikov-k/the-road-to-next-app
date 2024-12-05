@@ -6,7 +6,11 @@ export async function getTickets() {
       createdAt: "desc",
     },
     include: {
-      user: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 }

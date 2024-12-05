@@ -21,7 +21,9 @@ import { editTicketPath, ticketPath } from "@/paths";
 import { toCurrencyFromCents } from "@/utils/currency";
 
 interface TicketItemProps {
-  ticket: Prisma.TicketGetPayload<{ include: { user: true } }>;
+  ticket: Prisma.TicketGetPayload<{
+    include: { user: { select: { name: true } } };
+  }>;
   hasDetail?: boolean;
 }
 
