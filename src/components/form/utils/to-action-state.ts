@@ -49,11 +49,13 @@ export function fromErrorToActionState(
 
 export function toActionState(
   status: ActionState["status"],
-  message: string
+  message: string,
+  formData?: FormData
 ): ActionState {
   return {
     status,
     message,
+    payload: formData,
     fieldErrors: {},
     timestamp: Date.now(),
   };

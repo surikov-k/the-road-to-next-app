@@ -66,7 +66,8 @@ export async function signUp(_actionState: ActionState, formData: FormData) {
     ) {
       return toActionState(
         "ERROR",
-        "A user with this email or username already exists"
+        "A user with this email or username already exists",
+        formData
       );
     }
     return fromErrorToActionState(error, formData);

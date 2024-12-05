@@ -16,7 +16,13 @@ export default function SignInForm() {
     <Form action={action} actionState={actionState}>
       <div>
         <Label htmlFor='email'>Email</Label>
-        <Input type='email' placeholder='Email' name='email' id='email' />
+        <Input
+          type='email'
+          placeholder='Email'
+          name='email'
+          id='email'
+          defaultValue={actionState.payload?.get("email") as string}
+        />
         <FieldError actionState={actionState} name='email' />
       </div>
 
@@ -27,6 +33,7 @@ export default function SignInForm() {
           placeholder='Password'
           name='password'
           id='password'
+          defaultValue={actionState.payload?.get("password") as string}
         />
         <FieldError actionState={actionState} name='password' />
       </div>
