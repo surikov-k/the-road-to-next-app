@@ -1,4 +1,7 @@
 "use server";
+import { hash } from "@node-rs/argon2";
+import { Prisma } from "@prisma/client";
+import { cookies } from "next/headers";
 import { z } from "zod";
 
 import {
@@ -6,6 +9,8 @@ import {
   fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
+import { lucia } from "@/lib/lucia";
+import { prisma } from "@/lib/prisma";
 
 const signUpSchema = z
   .object({
@@ -35,10 +40,37 @@ export async function signUp(_actionState: ActionState, formData: FormData) {
     const { username, email, password } = signUpSchema.parse(
       Object.fromEntries(formData)
     );
-    console.log(username, email, password);
-    // TODO Store in database
-  } catch (e) {
-    return fromErrorToActionState(e, formData);
+
+    const passwordHash = await hash(password);
+
+    const user = await prisma.user.create({
+      data: {
+        name: username,
+        email,
+        passwordHash,
+      },
+    });
+
+    const session = await lucia.createSession(user.id, {});
+
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    (await cookies()).set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes
+    );
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return toActionState(
+        "ERROR",
+        "A user with this email or username already exists"
+      );
+    }
+    return fromErrorToActionState(error, formData);
   }
 
   return toActionState("SUCCESS", "Sign up successful");
