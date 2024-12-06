@@ -25,6 +25,7 @@ export default async function TicketList({
         <SortSelect
           options={[
             { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
+            { sortKey: "createdAt", sortValue: "asc", label: "Oldest" },
             { sortKey: "bounty", sortValue: "desc", label: "Bounty" },
           ]}
         />
