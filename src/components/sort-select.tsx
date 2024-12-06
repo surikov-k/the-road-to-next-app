@@ -1,6 +1,6 @@
 "use client";
 
-import { useQueryState } from "nuqs";
+import { useQueryStates } from "nuqs";
 import React from "react";
 
 import {
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sortParser } from "@/features/ticket/search-params";
+import { sortOptions, sortParser } from "@/features/ticket/search-params";
 
 interface SortSelectProps {
   options: Option[];
@@ -19,25 +19,33 @@ interface SortSelectProps {
 
 type Option = {
   label: string;
-  value: string;
+  sortKey: string;
+  sortValue: string;
 };
 
 export default function SortSelect({ options }: SortSelectProps) {
-  const [sort, setSort] = useQueryState("sort", sortParser);
+  const [sort, setSort] = useQueryStates(sortParser, sortOptions);
 
-  const handleSort = (value: string) => {
-    setSort(value);
+  const handleSort = async (sortKey: string) => {
+    const sortValue = options.find(
+      (option) => option.sortKey === sortKey
+    )?.sortValue;
+
+    await setSort({
+      sortKey,
+      sortValue,
+    });
   };
 
   return (
-    <Select defaultValue={sort} onValueChange={handleSort}>
+    <Select defaultValue={sort.sortKey} onValueChange={handleSort}>
       <SelectTrigger className='w-[180px]'>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+            <SelectItem key={option.sortKey} value={option.sortKey}>
               {option.label}
             </SelectItem>
           ))}
