@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import localFont from "next/font/local";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
@@ -35,21 +36,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-[#12100F] antialiased`}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <div className='flex h-screen border-collapse overflow-hidden'>
-            <Sidebar />
-            <main className='bg-[ flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-[#12100F] px-8 py-24'>
-              {children}
-            </main>
-          </div>
-          <Toaster position='top-right' expand richColors />
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <div className='flex h-screen border-collapse overflow-hidden'>
+              <Sidebar />
+              <main className='bg-[ flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-[#12100F] px-8 py-24'>
+                {children}
+              </main>
+            </div>
+            <Toaster position='top-right' expand richColors />
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
