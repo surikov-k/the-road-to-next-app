@@ -1,3 +1,4 @@
+import { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -5,10 +6,10 @@ import Heading from "@/components/Heading";
 import Placeholder from "@/components/placeholder";
 import Spinner from "@/components/spinner";
 import TicketList from "@/features/ticket/components/ticket-list";
-import { SearchParams } from "@/features/ticket/search-params";
+import { searchParamsCache } from "@/features/ticket/search-params";
 
 interface HomePageProps {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }
 
 export default function HomePage({ searchParams }: HomePageProps) {
@@ -18,7 +19,7 @@ export default function HomePage({ searchParams }: HomePageProps) {
 
       <ErrorBoundary fallback={<Placeholder label='Failed to load tickets' />}>
         <Suspense fallback={<Spinner />}>
-          <TicketList searchParams={searchParams} />
+          <TicketList searchParams={searchParamsCache.parse(searchParams)} />
         </Suspense>
       </ErrorBoundary>
     </div>

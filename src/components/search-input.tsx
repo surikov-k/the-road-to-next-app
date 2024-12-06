@@ -19,7 +19,6 @@ export default function SearchInput({ placeholder }: SearchInputProps) {
     (event: ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
       const params = new URLSearchParams(searchParams);
-      console.log(params);
 
       if (value) {
         params.set("search", value);
