@@ -94,8 +94,8 @@ export default {
       },
       animation: {
         "fade-in-from-top": "fade-in-from-top 0.5s ease-out",
-        "header-from-top": "header-from-top 0.5s ease-out",
-        "sidebar-from-left": "sidebar-from-left 0.5s ease-out",
+        "header-from-top": "header-from-top 0.3s ease-out",
+        "sidebar-from-left": "sidebar-from-left 0.3s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

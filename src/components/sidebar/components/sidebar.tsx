@@ -25,7 +25,7 @@ export default function Sidebar() {
   const [isOpen, setOpen] = useState(false);
 
   if (!user || !isFetched) {
-    return <div className='w-[78px] bg-secondary/20' />;
+    return <div className='w-[78px]' />;
   }
 
   const handleToggle = (open: boolean) => {
@@ -40,7 +40,8 @@ export default function Sidebar() {
         "animate-sidebar-from-left",
         "h-screen border-r pt-24",
         isTransition && "duration-200",
-        isOpen ? "w-[78px] md:w-60" : "w-[78px]"
+        isOpen ? "w-[78px] md:w-60" : "w-[78px]",
+        "bg-black"
       )}
       onMouseEnter={() => handleToggle(true)}
       onMouseLeave={() => handleToggle(false)}
