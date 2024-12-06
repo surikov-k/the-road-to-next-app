@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { cloneElement } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -12,12 +11,14 @@ import { NavItem } from "../types";
 type SidebarItemProps = {
   isOpen: boolean;
   navItem: NavItem;
+  isActive?: boolean;
 };
 
-export default function SidebarItem({ isOpen, navItem }: SidebarItemProps) {
-  const path = usePathname();
-  const isActive = path === navItem.href;
-
+export default function SidebarItem({
+  isOpen,
+  navItem,
+  isActive,
+}: SidebarItemProps) {
   return (
     <>
       {navItem.separator && <Separator />}
