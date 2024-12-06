@@ -38,6 +38,5 @@ export const getAuth = cache(async () => {
   } catch {
     // do nothing if used in a RSC
   }
-
   return result;
 });
