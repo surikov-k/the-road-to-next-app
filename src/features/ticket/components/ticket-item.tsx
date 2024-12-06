@@ -73,7 +73,11 @@ export default async function TicketItem({
         <CardHeader>
           <CardTitle className='flex gap-x-2'>
             <span>{TICKET_ICONS[ticket.status]}</span>
-            <span className={clsx({ truncate: !hasDetail })}>
+            <span
+              className={clsx({
+                "line-clamp-1 whitespace-break-spaces": !hasDetail,
+              })}
+            >
               {ticket.title}
             </span>
           </CardTitle>
