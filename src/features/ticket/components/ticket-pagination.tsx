@@ -1,11 +1,13 @@
 "use client";
 
-import { useQueryStates } from "nuqs";
+import { useQueryState, useQueryStates } from "nuqs";
+import { useEffect, useRef } from "react";
 
 import Pagination from "@/components/pagination";
 import {
   paginationOptions,
   paginationParser,
+  searchParser,
 } from "@/features/ticket/search-params";
 
 interface TicketPaginationProps {
@@ -22,6 +24,18 @@ export default function TicketPagination({
     paginationParser,
     paginationOptions
   );
+
+  const [search] = useQueryState("search", searchParser);
+  const prevSearch = useRef(search);
+
+  useEffect(() => {
+    if (search !== prevSearch.current) {
+      prevSearch.current = search;
+      setPagination({ ...pagination, page: 0 });
+    }
+    // add more reactive effects here once needed
+  }, [pagination, search, setPagination]);
+
   return (
     <Pagination
       pagination={pagination}
