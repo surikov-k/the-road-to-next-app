@@ -2,6 +2,7 @@ import React from "react";
 
 import Placeholder from "@/components/placeholder";
 import TicketItem from "@/features/ticket/components/ticket-item";
+import TicketPagination from "@/features/ticket/components/ticket-pagination";
 import TicketSearchInput from "@/features/ticket/components/ticket-search-input";
 import TicketSortSelect from "@/features/ticket/components/ticket-sort-select";
 import { getTickets } from "@/features/ticket/queries/get-tickets";
@@ -35,6 +36,9 @@ export default async function TicketList({
       ) : (
         <Placeholder label='No tickets found' />
       )}
+      <div className='w-full max-w-[420px]'>
+        <TicketPagination />
+      </div>
     </div>
   );
 }
