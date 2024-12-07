@@ -1,6 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type PageAndSize = {
   page: number;
@@ -40,6 +47,13 @@ export default function Pagination({
     });
   };
 
+  function handleChangeSize(value: string) {
+    onPagination({
+      page: 0,
+      size: parseInt(value),
+    });
+  }
+
   const previousButton = (
     <Button
       variant='outline'
@@ -61,10 +75,28 @@ export default function Pagination({
     </Button>
   );
 
+  const sizeButton = (
+    <Select
+      defaultValue={pagination.size.toString()}
+      onValueChange={handleChangeSize}
+    >
+      <SelectTrigger className='h-[36px]'>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value='5'>5</SelectItem>
+        <SelectItem value='10'>10</SelectItem>
+        <SelectItem value='25'>25</SelectItem>
+        <SelectItem value='100'>100</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+
   return (
     <div className='flex items-center justify-between'>
       <p className='text-sm text-muted-foreground'>{label}</p>
       <div className='flex gap-x-2'>
+        {sizeButton}
         {previousButton}
         {nextButton}
       </div>
