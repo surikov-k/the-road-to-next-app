@@ -16,6 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getAuth } from "@/features/auth/queries/get-auth";
+import Comments from "@/features/comment/components/comments";
 import { TICKET_ICONS } from "@/features/ticket/components/constants";
 import TicketMoreMenu from "@/features/ticket/components/ticket-more-menu";
 import { editTicketPath, ticketPath } from "@/paths";
@@ -64,55 +65,58 @@ export default async function TicketItem({
 
   return (
     <div
-      className={clsx("flex w-full gap-x-2", {
+      className={clsx("flex w-full flex-col gap-y-8", {
         "max-w-[420px]": !hasDetail,
         "max-w-[580px]": hasDetail,
       })}
     >
-      <Card key={ticket.id} className='w-full'>
-        <CardHeader>
-          <CardTitle className='flex gap-x-2'>
-            <span>{TICKET_ICONS[ticket.status]}</span>
-            <span
+      <div className='flex gap-x-2'>
+        <Card key={ticket.id} className='w-full'>
+          <CardHeader>
+            <CardTitle className='flex gap-x-2'>
+              <span>{TICKET_ICONS[ticket.status]}</span>
+              <span
+                className={clsx({
+                  "line-clamp-1 whitespace-break-spaces": !hasDetail,
+                })}
+              >
+                {ticket.title}
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p
               className={clsx({
-                "line-clamp-1 whitespace-break-spaces": !hasDetail,
+                "line-clamp-3 whitespace-break-spaces": !hasDetail,
               })}
             >
-              {ticket.title}
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p
-            className={clsx({
-              "line-clamp-3 whitespace-break-spaces": !hasDetail,
-            })}
-          >
-            {ticket.content}
-          </p>
-        </CardContent>
-        <CardFooter className='flex justify-between'>
-          <p className='text-sm text-muted-foreground'>
-            {ticket.deadline} by {ticket.user.name}
-          </p>
-          <p className='text-sm text-muted-foreground'>
-            {toCurrencyFromCents(ticket.bounty)}
-          </p>
-        </CardFooter>
-      </Card>
-      <div className='flex flex-col'>
-        {hasDetail ? (
-          <>
-            {editButton}
-            {moreMenu}
-          </>
-        ) : (
-          <>
-            {detailButton}
-            {editButton}
-          </>
-        )}
+              {ticket.content}
+            </p>
+          </CardContent>
+          <CardFooter className='flex justify-between'>
+            <p className='text-sm text-muted-foreground'>
+              {ticket.deadline} by {ticket.user.name}
+            </p>
+            <p className='text-sm text-muted-foreground'>
+              {toCurrencyFromCents(ticket.bounty)}
+            </p>
+          </CardFooter>
+        </Card>
+        <div className='flex flex-col'>
+          {hasDetail ? (
+            <>
+              {editButton}
+              {moreMenu}
+            </>
+          ) : (
+            <>
+              {detailButton}
+              {editButton}
+            </>
+          )}
+        </div>
       </div>
+      {hasDetail && <Comments ticketId={ticket.id} />}
     </div>
   );
 }
