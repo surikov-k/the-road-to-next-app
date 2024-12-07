@@ -1,9 +1,9 @@
 import React from "react";
 
 import Placeholder from "@/components/placeholder";
-import SearchInput from "@/components/search-input";
-import SortSelect from "@/components/sort-select";
 import TicketItem from "@/features/ticket/components/ticket-item";
+import TicketSearchInput from "@/features/ticket/components/ticket-search-input";
+import TicketSortSelect from "@/features/ticket/components/ticket-sort-select";
 import { getTickets } from "@/features/ticket/queries/get-tickets";
 import { ParsedSearchParams } from "@/features/ticket/search-params";
 
@@ -21,8 +21,8 @@ export default async function TicketList({
   return (
     <div className='flex flex-1 animate-fade-in-from-top flex-col items-center gap-y-4'>
       <div className='flex w-full max-w-[420px] gap-x-2'>
-        <SearchInput placeholder='Search tickets...' />
-        <SortSelect
+        <TicketSearchInput placeholder='Search tickets...' />
+        <TicketSortSelect
           options={[
             { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
             { sortKey: "createdAt", sortValue: "asc", label: "Oldest" },

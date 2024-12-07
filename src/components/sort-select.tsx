@@ -1,6 +1,5 @@
 "use client";
 
-import { useQueryStates } from "nuqs";
 import React from "react";
 
 import {
@@ -11,33 +10,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sortOptions, sortParser } from "@/features/ticket/search-params";
 
 interface SortSelectProps {
-  options: Option[];
+  value: SortObject;
+  onChange: (sort: SortObject) => void;
+  options: SortSelectOption[];
 }
 
-type Option = {
+export type SortSelectOption = {
   label: string;
   sortKey: string;
   sortValue: string;
 };
 
-export default function SortSelect({ options }: SortSelectProps) {
-  const [sort, setSort] = useQueryStates(sortParser, sortOptions);
+type SortObject = {
+  sortKey: string;
+  sortValue: string;
+};
 
+export default function SortSelect({
+  value,
+  onChange,
+  options,
+}: SortSelectProps) {
   const handleSort = async (compositeKey: string) => {
     const [sortKey, sortValue] = compositeKey.split("_");
 
-    await setSort({
-      sortKey,
-      sortValue,
-    });
+    onChange({ sortKey, sortValue });
   };
 
   return (
     <Select
-      defaultValue={sort.sortKey + "_" + sort.sortValue}
+      defaultValue={value.sortKey + "_" + value.sortValue}
       onValueChange={handleSort}
     >
       <SelectTrigger className='w-[180px]'>
