@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Prisma } from "@prisma/client";
 import { clsx } from "clsx";
@@ -8,6 +8,7 @@ import {
   LucideSquareArrowOutUpRight,
 } from "lucide-react";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,8 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Comments from "@/features/comment/components/comments";
-import { CommentWithMetadata } from "@/features/comment/types";
 import { TICKET_ICONS } from "@/features/ticket/components/constants";
 import TicketMoreMenu from "@/features/ticket/components/ticket-more-menu";
 import { editTicketPath, ticketPath } from "@/paths";
@@ -31,7 +30,8 @@ interface TicketItemProps {
     isOwner: boolean;
   };
   hasDetail?: boolean;
-  comments?: CommentWithMetadata[];
+  // comments?: CommentWithMetadata[];
+  comments?: ReactNode;
 }
 
 export default function TicketItem({
@@ -122,8 +122,8 @@ export default function TicketItem({
           )}
         </div>
       </div>
-      {hasDetail && <Comments ticketId={ticket.id} comments={comments} />}
-      {/*{comments}*/}
+      {/*{hasDetail && <Comments ticketId={ticket.id} comments={comments} />}*/}
+      {comments}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import Placeholder from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import Comments from "@/features/comment/components/comments";
 import { getComments } from "@/features/comment/queries/getComments";
 import TicketItem from "@/features/ticket/components/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-ticket";
@@ -49,7 +50,12 @@ export default async function TicketPage({ params }: TicketPageProps) {
       <Separator />
 
       <div className={"flex animate-fade-in-from-top justify-center"}>
-        <TicketItem ticket={ticket} hasDetail comments={comments} />
+        <TicketItem
+          ticket={ticket}
+          hasDetail
+          // comments={comments}
+          comments={<Comments ticketId={ticket.id} comments={comments} />}
+        />
       </div>
     </div>
   );
