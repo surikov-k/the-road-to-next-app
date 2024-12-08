@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import CardCompact from "@/components/card-compact";
 import { Button } from "@/components/ui/button";
 import CommentCreateForm from "@/features/comment/components/comment-create-form";
@@ -25,12 +27,13 @@ export default function Comments({
 }: CommentsProps) {
   // const { user } = await getAuth();f
 
-  const comments = paginatedComments.list;
+  const [comments, setComments] = useState(paginatedComments.list);
 
   const handleMore = async () => {
     const morePaginatedComments = await getComments(ticketId);
     const moreComments = morePaginatedComments.list;
-    console.log(moreComments);
+
+    setComments([...comments, ...moreComments]);
   };
 
   return (
