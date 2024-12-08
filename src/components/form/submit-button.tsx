@@ -17,6 +17,7 @@ type SubmitButtonProps = {
     | "link";
   size?: "default" | "sm" | "lg" | "icon";
 };
+
 export default function SubmitButton({
   label,
   icon,

@@ -38,7 +38,7 @@ export async function getComments(ticketId: string, offset?: number) {
       ...comment,
       isOwner: isOwner(user, comment),
     })),
-    metaData: {
+    metadata: {
       count,
       hasMore: skip + take < count,
     },

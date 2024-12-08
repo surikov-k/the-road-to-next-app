@@ -28,12 +28,14 @@ export default function Comments({
   // const { user } = await getAuth();f
 
   const [comments, setComments] = useState(paginatedComments.list);
+  const [metadata, setMetadata] = useState(paginatedComments.metadata);
 
   const handleMore = async () => {
-    const morePaginatedComments = await getComments(ticketId);
+    const morePaginatedComments = await getComments(ticketId, comments.length);
     const moreComments = morePaginatedComments.list;
 
     setComments([...comments, ...moreComments]);
+    setMetadata(morePaginatedComments.metadata);
   };
 
   return (
@@ -59,9 +61,11 @@ export default function Comments({
       </div>
 
       <div className='ml-8 flex flex-col justify-center'>
-        <Button variant='ghost' onClick={handleMore}>
-          More
-        </Button>
+        {metadata.hasMore && (
+          <Button variant='ghost' onClick={handleMore}>
+            More
+          </Button>
+        )}
       </div>
     </>
   );
