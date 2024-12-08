@@ -10,15 +10,27 @@ import { CommentWithMetadata } from "@/features/comment/types";
 
 interface CommentsProps {
   ticketId: string;
-  comments?: CommentWithMetadata[];
+  paginatedComments: {
+    list: CommentWithMetadata[];
+    metadata: {
+      count: number;
+      hasMore: boolean;
+    };
+  };
 }
 
-export default function Comments({ ticketId, comments = [] }: CommentsProps) {
-  // const { user } = await getAuth();
+export default function Comments({
+  ticketId,
+  paginatedComments,
+}: CommentsProps) {
+  // const { user } = await getAuth();f
+
+  const comments = paginatedComments.list;
 
   const handleMore = async () => {
-    const result = await getComments(ticketId);
-    console.log("More", result);
+    const morePaginatedComments = await getComments(ticketId);
+    const moreComments = morePaginatedComments.list;
+    console.log(moreComments);
   };
 
   return (
