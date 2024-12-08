@@ -6,6 +6,7 @@ import {
   LucideSquareArrowOutUpRight,
 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import Comments from "@/features/comment/components/comments";
 import { TICKET_ICONS } from "@/features/ticket/components/constants";
@@ -116,7 +118,19 @@ export default async function TicketItem({
           )}
         </div>
       </div>
-      {hasDetail && <Comments ticketId={ticket.id} />}
+      {hasDetail && (
+        <Suspense
+          fallback={
+            <div className='flex animate-fade-in-from-top flex-col gap-y-2'>
+              <Skeleton className='h-[250px] w-full' />
+              <Skeleton className='ml-8 h-[80px]' />
+              <Skeleton className='ml-8 h-[80px]' />
+            </div>
+          }
+        >
+          <Comments ticketId={ticket.id} />
+        </Suspense>
+      )}
     </div>
   );
 }
