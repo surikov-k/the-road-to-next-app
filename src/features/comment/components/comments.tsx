@@ -1,7 +1,11 @@
+"use client";
+
 import CardCompact from "@/components/card-compact";
+import { Button } from "@/components/ui/button";
 import CommentCreateForm from "@/features/comment/components/comment-create-form";
 import CommentDeleteButton from "@/features/comment/components/comment-delet-button";
 import CommentItem from "@/features/comment/components/comment-item";
+import { getComments } from "@/features/comment/queries/getComments";
 import { CommentWithMetadata } from "@/features/comment/types";
 
 interface CommentsProps {
@@ -11,6 +15,11 @@ interface CommentsProps {
 
 export default function Comments({ ticketId, comments = [] }: CommentsProps) {
   // const { user } = await getAuth();
+
+  const handleMore = async () => {
+    const result = await getComments(ticketId);
+    console.log("More", result);
+  };
 
   return (
     <>
@@ -32,6 +41,12 @@ export default function Comments({ ticketId, comments = [] }: CommentsProps) {
             ]}
           />
         ))}
+      </div>
+
+      <div className='ml-8 flex flex-col justify-center'>
+        <Button variant='ghost' onClick={handleMore}>
+          More
+        </Button>
       </div>
     </>
   );
