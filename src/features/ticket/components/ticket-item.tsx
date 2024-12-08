@@ -123,6 +123,7 @@ export default function TicketItem({
         </div>
       </div>
       {hasDetail && <Comments ticketId={ticket.id} comments={comments} />}
+      {/*{comments}*/}
     </div>
   );
 }
