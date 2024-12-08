@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { ReactNode } from "react";
 
 import { Card } from "@/components/ui/card";
@@ -17,7 +18,7 @@ export default function CommentItem({ comment, buttons }: CommentItemProps) {
             {comment.user?.name ?? "Deleted user"}
           </p>
           <p className='text-sm text-muted-foreground'>
-            {comment.createdAt.toLocaleString()}
+            {format(new Date(comment.createdAt), "dd MMM yyyy, HH:mm")}
           </p>
         </div>
         <p className='whitespace-pre-line'>{comment.content}</p>
