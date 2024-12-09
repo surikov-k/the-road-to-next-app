@@ -43,12 +43,22 @@ export default function Comments({
       prevComments.filter((comment) => comment.id !== commentId)
     );
   };
+
+  const handleCreateComment = (comment: CommentWithMetadata) => {
+    setComments((prevComments) => [comment, ...prevComments]);
+  };
+
   return (
     <>
       <CardCompact
         title='Create Comment'
         description='A new comment will be created'
-        content={<CommentCreateForm ticketId={ticketId} />}
+        content={
+          <CommentCreateForm
+            ticketId={ticketId}
+            onCreateComment={handleCreateComment}
+          />
+        }
       />
       <div className='ml-8 flex flex-col gap-y-4'>
         {comments.map((comment) => (
