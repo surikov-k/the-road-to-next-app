@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 
 import Header from "@/app/_navigation/header";
 import Sidebar from "@/app/_navigation/sidebar/components/sidebar";
+import ReactQueryProvider from "@/app/_providers/react-query/react-query-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -43,14 +44,16 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <div className='flex h-screen border-collapse overflow-hidden'>
-              <Sidebar />
-              <main className='bg-[ flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-[#12100F] px-8 py-24'>
-                {children}
-              </main>
-            </div>
-            <Toaster position='top-right' expand richColors />
+            <ReactQueryProvider>
+              <Header />
+              <div className='flex h-screen border-collapse overflow-hidden'>
+                <Sidebar />
+                <main className='bg-[ flex min-h-screen flex-1 flex-col overflow-y-auto overflow-x-hidden bg-[#12100F] px-8 py-24'>
+                  {children}
+                </main>
+              </div>
+              <Toaster position='top-right' expand richColors />
+            </ReactQueryProvider>
           </ThemeProvider>
         </NuqsAdapter>
       </body>
