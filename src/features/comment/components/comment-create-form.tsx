@@ -15,7 +15,7 @@ import { CommentWithMetadata } from "@/features/comment/types";
 
 interface CommentCreateFormProps {
   ticketId: string;
-  onCreateComment?: (comment: CommentWithMetadata) => void;
+  onCreateComment?: (comment: CommentWithMetadata | undefined) => void;
 }
 
 export default function CommentCreateForm({
@@ -26,8 +26,10 @@ export default function CommentCreateForm({
     createComment.bind(null, ticketId),
     EMPTY_ACTION_STATE
   );
-  const handleSuccess = (actionState: ActionState) => {
-    onCreateComment?.(actionState.data as CommentWithMetadata);
+  const handleSuccess = (
+    actionState: ActionState<CommentWithMetadata | undefined>
+  ) => {
+    onCreateComment?.(actionState.data);
   };
   return (
     <Form action={action} actionState={actionState} onSuccess={handleSuccess}>
