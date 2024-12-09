@@ -30,7 +30,7 @@ interface UseConfirmDialogProps {
   action: () => Promise<ActionState>;
   description?: string;
   title?: string;
-  trigger: ReactElement;
+  trigger: ReactElement | ((isPending: boolean) => ReactElement);
   onSuccess?: (actionState: ActionState) => void;
 }
 
@@ -43,13 +43,16 @@ export default function useConfirmDialog({
 }: UseConfirmDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const dialogTrigger = cloneElement(trigger, {
-    onClick: () => setIsOpen((state) => !state),
-  });
-
   const [actionState, formAction, isPending] = useActionState(
     action,
     EMPTY_ACTION_STATE
+  );
+
+  const dialogTrigger = cloneElement(
+    typeof trigger === "function" ? trigger(isPending) : trigger,
+    {
+      onClick: () => setIsOpen((state) => !state),
+    }
   );
 
   const toastRef = useRef<string | number | null>(null);
