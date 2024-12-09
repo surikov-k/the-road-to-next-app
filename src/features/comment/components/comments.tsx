@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import CardCompact from "@/components/card-compact";
 import { Button } from "@/components/ui/button";
@@ -20,30 +20,40 @@ export default function Comments({
   ticketId,
   paginatedComments,
 }: CommentsProps) {
-  // const { user } = await getAuth();f
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["comments", ticketId],
+      queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage.metadata.hasMore ? lastPage.metadata.cursor : undefined,
+    });
 
-  const [comments, setComments] = useState(paginatedComments.list);
-  const [metadata, setMetadata] = useState(paginatedComments.metadata);
+  // const [comments, setComments] = useState(paginatedComments.list);
+  // const [metadata, setMetadata] = useState(paginatedComments.metadata);
 
-  const handleMore = async () => {
-    const morePaginatedComments = await getComments(ticketId, metadata.cursor);
-    const moreComments = morePaginatedComments.list;
+  const comments = data?.pages.flatMap((page) => page.list) || [];
 
-    setComments([...comments, ...moreComments]);
-    setMetadata(morePaginatedComments.metadata);
+  const handleMore = () => {
+    fetchNextPage();
+    // const morePaginatedComments = await getComments(ticketId, metadata.cursor);
+    // const moreComments = morePaginatedComments.list;
+    //
+    // setComments([...comments, ...moreComments]);
+    // setMetadata(morePaginatedComments.metadata);
   };
 
   const handleDeleteComment = (commentId: string) => {
-    setComments((prevComments) =>
-      prevComments.filter((comment) => comment.id !== commentId)
-    );
+    // setComments((prevComments) =>
+    //   prevComments.filter((comment) => comment.id !== commentId)
+    // );
   };
 
   const handleCreateComment = (comment: CommentWithMetadata | undefined) => {
-    if (!comment) {
-      return;
-    }
-    setComments((prevComments) => [comment, ...prevComments]);
+    // if (!comment) {
+    //   return;
+    // }
+    // setComments((prevComments) => [comment, ...prevComments]);
   };
 
   return (
@@ -80,8 +90,12 @@ export default function Comments({
       </div>
 
       <div className='ml-8 flex flex-col justify-center'>
-        {metadata.hasMore && (
-          <Button variant='ghost' onClick={handleMore}>
+        {hasNextPage && (
+          <Button
+            variant='ghost'
+            onClick={handleMore}
+            disabled={isFetchingNextPage}
+          >
             More
           </Button>
         )}
