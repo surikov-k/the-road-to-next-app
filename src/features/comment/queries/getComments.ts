@@ -32,8 +32,8 @@ export async function getComments(ticketId: string, cursor?: string) {
     }),
   ]);
 
-  const hasMore = comments.length > take;
-  comments = hasMore ? comments.slice(0, -1) : comments;
+  const hasNextPage = comments.length > take;
+  comments = hasNextPage ? comments.slice(0, -1) : comments;
 
   return {
     list: comments.map((comment) => ({
@@ -42,7 +42,7 @@ export async function getComments(ticketId: string, cursor?: string) {
     })),
     metadata: {
       count,
-      hasMore,
+      hasNextPage,
       cursor: comments.at(-1)?.id,
     },
   };

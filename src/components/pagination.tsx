@@ -23,7 +23,7 @@ interface PaginationProps {
 export default function Pagination({
   pagination,
   onPagination,
-  paginationMetadata: { count, hasMore },
+  paginationMetadata: { count, hasNextPage },
 }: PaginationProps) {
   const startOffset = pagination.page * pagination.size + 1;
   const endOffset = startOffset + pagination.size - 1;
@@ -66,7 +66,7 @@ export default function Pagination({
     <Button
       variant='outline'
       size='sm'
-      disabled={!hasMore}
+      disabled={!hasNextPage}
       onClick={handleNextPage}
     >
       Next

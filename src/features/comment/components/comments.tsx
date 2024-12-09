@@ -1,9 +1,10 @@
 "use client";
 
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 import CardCompact from "@/components/card-compact";
-import { Button } from "@/components/ui/button";
 import CommentCreateForm from "@/features/comment/components/comment-create-form";
 import CommentDeleteButton from "@/features/comment/components/comment-delet-button";
 import CommentItem from "@/features/comment/components/comment-item";
@@ -27,7 +28,7 @@ export default function Comments({
       queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
       initialPageParam: undefined as string | undefined,
       getNextPageParam: (lastPage) =>
-        lastPage.metadata.hasMore ? lastPage.metadata.cursor : undefined,
+        lastPage.metadata.hasNextPage ? lastPage.metadata.cursor : undefined,
       initialData: {
         pages: [paginatedComments],
         pageParams: [undefined],
@@ -36,13 +37,19 @@ export default function Comments({
 
   const comments = data.pages.flatMap((page) => page.list);
 
-  const handleMore = () => fetchNextPage();
-
   const queryClient = useQueryClient();
 
   const handleDeleteComment = () => queryClient.invalidateQueries({ queryKey });
 
   const handleCreateComment = () => queryClient.invalidateQueries({ queryKey });
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <>
@@ -76,16 +83,11 @@ export default function Comments({
           />
         ))}
       </div>
-
-      <div className='ml-8 flex flex-col justify-center'>
-        {hasNextPage && (
-          <Button
-            variant='ghost'
-            onClick={handleMore}
-            disabled={isFetchingNextPage}
-          >
-            More
-          </Button>
+      <div ref={ref}>
+        {!hasNextPage && (
+          <p className='text-right text-xs italic text-muted-foreground'>
+            No more comments
+          </p>
         )}
       </div>
     </>
