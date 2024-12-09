@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PaginatedData } from "@/types/pagination";
 
 type PageAndSize = {
   page: number;
@@ -16,16 +17,13 @@ type PageAndSize = {
 interface PaginationProps {
   pagination: PageAndSize;
   onPagination: (pageAndSize: PageAndSize) => void;
-  paginationMetadata: {
-    count: number;
-    hasNextPage: boolean;
-  };
+  paginationMetadata: PaginatedData<unknown>["metadata"];
 }
 
 export default function Pagination({
   pagination,
   onPagination,
-  paginationMetadata: { count, hasNextPage },
+  paginationMetadata: { count, hasMore },
 }: PaginationProps) {
   const startOffset = pagination.page * pagination.size + 1;
   const endOffset = startOffset + pagination.size - 1;
@@ -68,7 +66,7 @@ export default function Pagination({
     <Button
       variant='outline'
       size='sm'
-      disabled={!hasNextPage}
+      disabled={!hasMore}
       onClick={handleNextPage}
     >
       Next

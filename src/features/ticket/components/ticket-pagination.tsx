@@ -9,12 +9,11 @@ import {
   paginationParser,
   searchParser,
 } from "@/features/ticket/search-params";
+import { TicketWithMetadata } from "@/features/ticket/types";
+import { PaginatedData } from "@/types/pagination";
 
 interface TicketPaginationProps {
-  paginationTicketMetadata: {
-    count: number;
-    hasNextPage: boolean;
-  };
+  paginationTicketMetadata: PaginatedData<TicketWithMetadata>["metadata"];
 }
 
 export default function TicketPagination({
