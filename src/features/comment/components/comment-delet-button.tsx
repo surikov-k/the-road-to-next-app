@@ -8,10 +8,12 @@ import { deleteComment } from "@/features/comment/actions/delete-comment";
 
 interface CommentDeleteButtonProps {
   commentId: string;
+  onDeleteComment?: (commentId: string) => void;
 }
 
 export default function CommentDeleteButton({
   commentId,
+  onDeleteComment,
 }: CommentDeleteButtonProps) {
   const [deleteButton, deleteButtonDialog] = useConfirmDialog({
     action: deleteComment.bind(null, commentId),
@@ -24,6 +26,7 @@ export default function CommentDeleteButton({
         <LucideTrash className='h-4 w-4' />
       </Button>
     ),
+    onSuccess: () => onDeleteComment?.(commentId),
   });
 
   return (

@@ -22,6 +22,7 @@ interface UseConfirmDialogProps {
   description?: string;
   title?: string;
   trigger: ReactElement;
+  onSuccess?: (actionState: ActionState) => void;
 }
 
 export default function useConfirmDialog({
@@ -29,6 +30,7 @@ export default function useConfirmDialog({
   description = "This action cannot be undone. Make sure you understand the consequences.",
   title = "Are you absolute sure?",
   trigger,
+  onSuccess,
 }: UseConfirmDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,6 +42,7 @@ export default function useConfirmDialog({
 
   const handleSuccess = () => {
     setIsOpen(false);
+    onSuccess?.(actionState);
   };
 
   const dialog = (

@@ -38,6 +38,11 @@ export default function Comments({
     setMetadata(morePaginatedComments.metadata);
   };
 
+  const handleDeleteComment = (commentId: string) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== commentId)
+    );
+  };
   return (
     <>
       <CardCompact
@@ -53,7 +58,13 @@ export default function Comments({
             buttons={[
               // ...(isOwner(user, comment)
               ...(comment.isOwner
-                ? [<CommentDeleteButton key='0' commentId={comment.id} />]
+                ? [
+                    <CommentDeleteButton
+                      onDeleteComment={handleDeleteComment}
+                      key='0'
+                      commentId={comment.id}
+                    />,
+                  ]
                 : []),
             ]}
           />
