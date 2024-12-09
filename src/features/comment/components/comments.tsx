@@ -20,7 +20,7 @@ export default function Comments({
   ticketId,
   paginatedComments,
 }: CommentsProps) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useInfiniteQuery({
       queryKey: ["comments", ticketId],
       queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
@@ -37,18 +37,9 @@ export default function Comments({
 
   const handleMore = () => fetchNextPage();
 
-  const handleDeleteComment = (commentId: string) => {
-    // setComments((prevComments) =>
-    //   prevComments.filter((comment) => comment.id !== commentId)
-    // );
-  };
+  const handleDeleteComment = () => refetch();
 
-  const handleCreateComment = (comment: CommentWithMetadata | undefined) => {
-    // if (!comment) {
-    //   return;
-    // }
-    // setComments((prevComments) => [comment, ...prevComments]);
-  };
+  const handleCreateComment = () => refetch();
 
   return (
     <>
