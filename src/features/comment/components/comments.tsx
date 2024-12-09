@@ -27,21 +27,15 @@ export default function Comments({
       initialPageParam: undefined as string | undefined,
       getNextPageParam: (lastPage) =>
         lastPage.metadata.hasMore ? lastPage.metadata.cursor : undefined,
+      initialData: {
+        pages: [paginatedComments],
+        pageParams: [undefined],
+      },
     });
 
-  // const [comments, setComments] = useState(paginatedComments.list);
-  // const [metadata, setMetadata] = useState(paginatedComments.metadata);
+  const comments = data.pages.flatMap((page) => page.list);
 
-  const comments = data?.pages.flatMap((page) => page.list) || [];
-
-  const handleMore = () => {
-    fetchNextPage();
-    // const morePaginatedComments = await getComments(ticketId, metadata.cursor);
-    // const moreComments = morePaginatedComments.list;
-    //
-    // setComments([...comments, ...moreComments]);
-    // setMetadata(morePaginatedComments.metadata);
-  };
+  const handleMore = () => fetchNextPage();
 
   const handleDeleteComment = (commentId: string) => {
     // setComments((prevComments) =>
