@@ -22,7 +22,7 @@ export default function Comments({
   paginatedComments,
 }: CommentsProps) {
   const queryKey = ["comments", ticketId];
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey,
       queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
